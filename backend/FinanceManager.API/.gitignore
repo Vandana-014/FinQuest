@@ -1,0 +1,18 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio files
+*.user
+*.suo
+*.vs
+
+# Compiled DLLs
+*.dll
+*.exe
+
+# NuGet packages
+*.nupkg
+
+# Migrations snapshots (optional)
+# *.Designer.cs
