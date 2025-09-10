@@ -12,5 +12,9 @@ namespace FinanceManager.API.Data
         // Finance tables
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Goal> Goals { get; set; }
+        public DbSet<Badge> Badges { get; set; }
+
     }
 }
