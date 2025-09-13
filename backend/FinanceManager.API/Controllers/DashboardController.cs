@@ -9,7 +9,7 @@ namespace FinanceManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize]  // ✅ Protect with JWT
     public class DashboardController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -21,24 +21,31 @@ namespace FinanceManager.API.Controllers
             _userManager = userManager;
         }
 
-        // ✅ Get dashboard summary
+        // ✅ GET api/dashboard/summary
         [HttpGet("summary")]
         public async Task<IActionResult> GetSummary()
         {
+            // Get logged-in user ID from JWT
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("User not found in token.");
 
+            // Fetch transactions for this user
             var transactions = await _context.Transactions
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
 
+            // Fetch active goals
             var goals = await _context.Goals
                 .Where(g => g.UserId == userId && g.Status == "InProgress")
                 .ToListAsync();
 
+            // Fetch unlocked badges
             var badges = await _context.Badges
                 .Where(b => b.UserId == userId)
                 .ToListAsync();
 
+            // Calculate summary
             var totalIncome = transactions.Where(t => t.Type == "Income").Sum(t => t.Amount);
             var totalExpense = transactions.Where(t => t.Type == "Expense").Sum(t => t.Amount);
             var balance = totalIncome - totalExpense;
@@ -60,7 +67,7 @@ namespace FinanceManager.API.Controllers
                     g.Title,
                     g.TargetAmount,
                     g.CurrentAmount,
-                    Progress = (g.CurrentAmount / g.TargetAmount) * 100
+                    Progress = g.TargetAmount > 0 ? (g.CurrentAmount / g.TargetAmount) * 100 : 0
                 }),
                 TotalBadges = badges.Count
             });

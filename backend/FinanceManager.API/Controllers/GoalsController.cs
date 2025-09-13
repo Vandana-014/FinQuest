@@ -77,6 +77,25 @@ namespace FinanceManager.API.Controllers
             return Ok(goal);
         }
 
+        // ✅ Update an existing goal (edit title, target amount, deadline, etc.)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateGoal(int id, [FromBody] Goal updatedGoal)
+        {
+            var userId = _userManager.GetUserId(User);
+            var goal = await _context.Goals.FirstOrDefaultAsync(g => g.Id == id && g.UserId == userId);
+
+            if (goal == null) return NotFound();
+
+            // Update only editable fields
+            goal.Title = updatedGoal.Title;
+
+            goal.TargetAmount = updatedGoal.TargetAmount;
+            goal.EndDate = updatedGoal.EndDate;
+
+            await _context.SaveChangesAsync();
+            return Ok(goal);
+        }
+
 
         // ✅ Mark as failed (if deadline missed)
         [HttpPut("{id}/fail")]

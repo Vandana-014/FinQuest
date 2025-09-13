@@ -9,7 +9,7 @@ namespace FinanceManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]  // 🔒 Require JWT
+    [Authorize]  // 🔒 Require JWT
     public class TransactionsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
