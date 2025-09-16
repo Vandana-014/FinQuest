@@ -1,18 +1,16 @@
-# Build folders
+# .NET build outputs
 bin/
 obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
 
-# Visual Studio files
+# Visual Studio / Rider files
 *.user
 *.suo
 *.vs
 
-# Compiled DLLs
-*.dll
-*.exe
-
 # NuGet packages
 *.nupkg
-
-# Migrations snapshots (optional)
-# *.Designer.cs

@@ -1,0 +1,164 @@
+/* 🎨 Gamified Finance Manager - Modern Login Page Styles */
+
+/* Color Palette */
+$primary: #6a5acd;       // slate purple
+$secondary: #4fd1c5;     // teal mint
+$accent: #ffd700;         // coin gold
+$text-dark: #1f2937;
+$text-light: #f9fafb;
+$bg-gradient-start: #e0f7fa;
+$bg-gradient-end: #f3f4f6;
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, $bg-gradient-start 0%, $bg-gradient-end 100%);
+  transition: background 0.5s ease;
+
+  /* Floating coin-like orbs */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: floatOrbs 20s infinite alternate;
+    z-index: 0;
+  }
+
+  &::before {
+    width: 350px;
+    height: 350px;
+    top: -100px;
+    left: -100px;
+    background: radial-gradient(circle, $accent 0%, transparent 75%);
+  }
+
+  &::after {
+    width: 450px;
+    height: 450px;
+    bottom: -120px;
+    right: -120px;
+    background: radial-gradient(circle, $secondary 0%, transparent 75%);
+    animation-delay: 5s;
+  }
+
+  @keyframes floatOrbs {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-30px) translateX(20px); }
+    100% { transform: translateY(0px) translateX(0px); }
+  }
+}
+
+/* Glassmorphism login card */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 400px;
+  padding: 3rem 2.5rem;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+  color: $text-dark;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, $primary, $secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  form {
+    margin-top: 1.2rem;
+  }
+}
+
+/* Material form fields inside card */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1.2rem;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  ::ng-deep .mat-mdc-form-field-outline {
+    border-radius: 14px !important;
+  }
+}
+
+/* Login button */
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: linear-gradient(120deg, $primary, $secondary);
+  color: $text-light;
+  box-shadow: 0 8px 24px rgba(106, 90, 205, 0.45);
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(106, 90, 205, 0.55);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    background: #cbd5e1;
+    box-shadow: none;
+  }
+}
+
+/* Optional "Forgot Password" row */
+.helper-row {
+  margin-top: 1.2rem;
+  font-size: 0.95rem;
+  color: $text-dark;
+
+  a {
+    font-weight: 600;
+    color: $primary;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $secondary;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .login-card {
+    width: 92%;
+    padding: 2rem 1.5rem;
+  }
+}

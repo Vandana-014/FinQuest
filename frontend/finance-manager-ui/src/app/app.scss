@@ -1,0 +1,8 @@
+/* Fill the entire background */
+body, html, app-root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e0f7fa 0%, #f3f4f6 100%);
+}
+
